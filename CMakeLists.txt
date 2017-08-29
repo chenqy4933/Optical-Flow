@@ -24,14 +24,14 @@ message(STATUS "    libraries: ${OpenCV_LIBS}")
 message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
 
 # Add OpenCV headers location to your include paths
+include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${OpenCV_INCLUDE_DIRS})
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/include/3rdparty/alglib)
 
 # Declare the executable target built from your sources
-add_executable(LK_opetical ${PROJECT_SOURCE_DIR}/src/LK_optical.cpp)
+add_executable(LK_opetical ${PROJECT_SOURCE_DIR}/src/lk_track.cpp
+                           ${PROJECT_SOURCE_DIR}/src/LK_optical.cpp)
 
 # Link your application with OpenCV libraries
-target_link_libraries(LK_opetical ${OpenCV_LIBS}
-                                    
-                                    )
+target_link_libraries(LK_opetical ${OpenCV_LIBS})
