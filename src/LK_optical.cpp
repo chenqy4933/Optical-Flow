@@ -1,11 +1,13 @@
 #include<stdio.h>
 #include<iostream>
 #include"lk_track.h"
-#include<opencv2/highgui/highgui.hpp>
-#include "cv.h"
-#include "highgui.h"
+#include <opencv2/video/tracking.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/features2d/features2d.hpp>
 
 using namespace std;
+using namespace cv;
 
 int main()
 {
@@ -69,8 +71,12 @@ int main()
         std::cout<<heigh<<std::endl;
 
         vector<cv::Point2f> vecNextPoints(vecPrePoints.size());
+        int start=clock();
         LK_track track(prevGray,gray,2,4);
-        track.Computer(vecPrePoints,vecNextPoints);
+        for(int i=0;i<100;i++)
+            track.Computer(vecPrePoints,vecNextPoints);
+        int stop=clock();
+        std::cout<<"My LK time is "<<(double)(stop-start)/100/1000000<<std::endl;
 
         cv::Mat objImgShow2;
         cv::cvtColor(gray, objImgShow2, CV_GRAY2BGR);
@@ -78,8 +84,8 @@ int main()
         {
 
                 const int RADIUS = 2;
-                cv::circle(objImgShow, vecNextPoints[i], RADIUS, CV_RGB(255, 0, 0), CV_FILLED);
-                cv::line(objImgShow, vecPrePoints[i], vecNextPoints[i], CV_RGB(0, 255, 0));
+                cv::circle(objImgShow2, vecNextPoints[i], RADIUS, CV_RGB(255, 0, 0), CV_FILLED);
+                cv::line(objImgShow2, vecPrePoints[i], vecNextPoints[i], CV_RGB(0, 255, 0));
 
         }
         cv::imshow("Optical Flow Myflow", objImgShow2);

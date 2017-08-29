@@ -13,14 +13,15 @@ typedef unsigned char * U8p;
 class LK_track
 {
 public: 
+    ~LK_track();
     LK_track();
-    LK_track(cv::Mat& preIm,cv::Mat& preIm,unsigned int level_,unsigned int subsampl_);
-    int Init(cv::Mat& preIm,cv::Mat& preIm,unsigned int level_,unsigned int subsampl_);
-    int Computer(std::vector<cv::Point2d>& Piont_pre,std::vector<cv::Point2d>& Piont_new);
+    LK_track(cv::Mat& preIm,cv::Mat& nextIm,unsigned int level_,unsigned int subsampl_);
+    int Init(cv::Mat& preIm,cv::Mat& nextIm,unsigned int level_,unsigned int subsampl_);
+    int Computer(std::vector<cv::Point2f>& Piont_pre,std::vector<cv::Point2f>& Piont_new);
     int generate_pyramid();   //computer pyramid
     int generate_grad();      //computer grad
-    U8 Interpolation(cv::Mat& img,cv::Point2d& position);
-    float Interpolation_grad(cv::Mat& img,cv::Point2d& position,int flag);
+    U8 Interpolation(cv::Mat& img,cv::Point2f position);
+    float Interpolation_grad(cv::Mat& img,cv::Point2f position,int flag);
 
     unsigned int window=5;
     unsigned int window_hf=5>>1;
@@ -31,10 +32,10 @@ public:
     unsigned int min_dis_iter=10;
     unsigned int min_change=2;
 
-    std::vector<cv::Mat> Pyramid_pre;
-    std::vector<cv::Mat> Pyramid_next;
+    std::vector<cv::Mat*> Pyramid_pre;
+    std::vector<cv::Mat*> Pyramid_next;
 
-    std::vector<cv::Mat> grad_next;
+    std::vector<cv::Mat*> grad_next;
     cv::Mat preMat;
     cv::Mat nextMat;
     float guiss_kernel[9]={1/16,1/8,1/16,1/8,1/4,1/8,1/16,1/8,1/16};

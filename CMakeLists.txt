@@ -9,9 +9,9 @@ project(Optical_flow)
 # via the command line or GUI
 
 find_package(OpenCV REQUIRED)
-#SET(CMAKE_BUILD_TYPE "Debug")
-SET(CMAKE_BUILD_TYPE "Release")
-SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
+SET(CMAKE_BUILD_TYPE "Debug")
+#SET(CMAKE_BUILD_TYPE "Release")
+SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -std=c++11 -O0 -Wall -g2 -ggdb")
 SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 
 # If the package has been found, several variables will
